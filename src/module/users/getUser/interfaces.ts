@@ -12,4 +12,24 @@ type User = {
     data_nascimento: string 
 }
 
-export { GetUserResquest, GetUserResponse, User };
+interface Produto {
+    id: string;
+    nome: string;
+    marca: string;
+    quantidade: number;
+    preco_unidade: number;
+    perecivel: string;
+    id_medida: number;
+  }
+  
+interface AddProdutoRequest {
+    id: string;
+    nome: string;
+    marca: string;
+    quantidade: number;
+    preco_unidade: number;
+    perecivel: string;
+    id_medida: number;
+  }
+
+export { GetUserResquest, GetUserResponse, User, Produto, AddProdutoRequest};
