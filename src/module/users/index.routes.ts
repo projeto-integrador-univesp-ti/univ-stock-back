@@ -1,8 +1,10 @@
-import { Router, Request, Response } from 'express';
-import { UsersController } from './index.controller';
+import { Router } from 'express';
+import { getUser } from './getUser';
+import { getUsers } from './getUsers';
 
 const route = Router()
 
-route.get('/create', UsersController.getUsers)
+// route.post('/', getUsers)
+route.post('/', getUser)
 
 export default route

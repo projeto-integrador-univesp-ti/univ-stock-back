@@ -6,10 +6,16 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./public",
-    "rootDir": "./src",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "rootDir": "./",
+    // "baseUrl": "./",
+    // "paths": {
+    //   "@knexfile": ["knexfile.ts"],
+    //   "@database": ["src/database/"],
+    //   "@module": ["src/module/"],
+    // }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "knexfile.ts"],
   "exclude": ["node_modules"]
 }
