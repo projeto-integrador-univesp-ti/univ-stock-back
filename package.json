@@ -8,7 +8,7 @@
     "build": "tsc & npm run db",
     "db": "tsc src/database/init-database.ts & node src/database/init-database.js & npm run db:clear",
     "db:migrate": "tsc src/database/migration-handles.ts & node src/database/migration-handles.js & npm run db:clear",
-    "db:clear": "find src/database -type f -name '*.js' | xargs rm -f"
+    "db:clear": "find src/database -type f -name '*.js' ! -path '*/dist/*' ! -path '*/node_modules/*' -exec rm -f {} + && rm -f knexfile.js"
   },
   "dependencies": {
     "chalk": "4.1.2",
