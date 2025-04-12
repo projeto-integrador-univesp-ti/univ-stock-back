@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { StatusCodes, getReasonPhrase } from "http-status-codes";
 import { recursiveObjectTo, snakeToCamelCase } from "../format";
 import { BaseRoute, Error } from "../../typing";
+import { ZodFormattedError } from "zod";
 
 const getResponse = (statusCode: typeof StatusCodes | number, data: any, error?: Error) => {
   if (error) {
@@ -25,8 +26,10 @@ const getResponse = (statusCode: typeof StatusCodes | number, data: any, error?:
   return data;
 };
 
-const error = (code: string, message: string): Error => {
-  return { code, message };
+const error = (code: string, message: string, validations?: ZodFormattedError<unknown>): Error => {
+  const isPRD = process.env.ENVIRONMENT === "prd"
+  delete (validations as any)?.["_errors"]
+  return { code, message, validations: !isPRD ? validations : undefined };
 };
 
 const status = (_: Request, res: Response, next: NextFunction) => {

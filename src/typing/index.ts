@@ -1,6 +1,9 @@
+import { ZodFormattedError } from "zod";
+
 interface Error {
   code: string;
   message: string;
+  validations: ZodFormattedError<unknown> | undefined
 }
 
 enum BaseRoute {
