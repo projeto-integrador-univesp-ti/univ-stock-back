@@ -3,15 +3,15 @@
 /**
  * Módulo de dependências
  */
-import app from '../app'
-import debug from 'debug';
-import http from 'http';
+import chalk from "chalk";
+import app from "../app";
+import http from "http";
 
 /**
  * Obter a porta do ambiente e armazená-la no Express
  */
-const port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+const port = normalizePort(process.env.PORT || "3000");
+app.set("port", port);
 
 /**
  * Criar o servidor HTTP
@@ -22,8 +22,8 @@ const server = http.createServer(app);
  * Escutar na porta fornecida, em todas as interfaces de rede
  */
 server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+server.on("error", onError);
+server.on("listening", onListening);
 
 /**
  * Normaliza uma porta para número, string ou false.
@@ -48,21 +48,19 @@ function normalizePort(val: string): string | number | false {
  * Ouvinte de evento para o erro do servidor HTTP
  */
 function onError(error: NodeJS.ErrnoException): void {
-  if (error.syscall !== 'listen') {
+  if (error.syscall !== "listen") {
     throw error;
   }
 
-  const bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
   // Lidar com erros específicos de escuta com mensagens amigáveis
   switch (error.code) {
-    case 'EACCES':
+    case "EACCES":
       console.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
-    case 'EADDRINUSE':
+    case "EADDRINUSE":
       console.error(`${bind} is already in use`);
       process.exit(1);
       break;
@@ -75,9 +73,7 @@ function onError(error: NodeJS.ErrnoException): void {
  * Ouvinte de evento para o servidor HTTP "listening"
  */
 function onListening(): void {
-  const addr = server.address();
-  const bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr?.port;
-  debug('Listening on ' + bind);
+  const message = chalk.white(`Servidor rodando em:`)
+  const localhost = chalk.bgGreen.whiteBright.bold(` http://localhost:${port} `)
+  console.log(`${message} ${localhost}`)
 }

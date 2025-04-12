@@ -3,14 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "tsc & node dist/src/server/index.js",
-    "dev": "ts-node src/server",
+    "start": "node dist/src/server/index.js",
+    "dev": "nodemon",
     "build": "tsc & npm run db",
     "db": "tsc src/database/init-database.ts & node src/database/init-database.js & npm run db:clear",
     "db:migrate": "tsc src/database/migration-handles.ts & node src/database/migration-handles.js & npm run db:clear",
     "db:clear": "find src/database -type f -name '*.js' | xargs rm -f"
   },
   "dependencies": {
+    "chalk": "4.1.2",
     "cookie-parser": "1.4.4",
     "ejs": "3.1.10",
     "express": "5.1.0",
@@ -18,19 +19,18 @@
     "http-status-codes": "2.3.0",
     "knex": "3.1.0",
     "morgan": "1.9.1",
-    "mysql2": "3.14.0"
+    "mysql2": "3.14.0",
+    "nodemon": "3.1.9",
+    "zod": "3.24.2"
   },
   "devDependencies": {
+    "@types/chalk": "^0.4.31",
     "@types/cookie-parser": "1.4.8",
-    "@types/debug": "4.1.12",
     "@types/express": "5.0.1",
     "@types/inquirer": "9.0.7",
     "@types/morgan": "1.9.9",
     "@types/node": "22.13.14",
-    "debug": "2.6.9",
     "inquirer": "12.5.2",
-    "jest": "^29.7.0",
-    "ts-node": "10.9.2",
     "typescript": "5.8.2"
   }
 }

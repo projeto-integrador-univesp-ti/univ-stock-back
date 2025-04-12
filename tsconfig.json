@@ -3,18 +3,13 @@
     "target": "ES6",
     "module": "CommonJS",
     "strict": true,
+    "incremental": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "outDir": "./dist",
     "rootDir": "./",
-    // "baseUrl": "./",
-    // "paths": {
-    //   "@knexfile": ["knexfile.ts"],
-    //   "@database": ["src/database/"],
-    //   "@module": ["src/module/"],
-    // }
   },
   "include": ["src/**/*", "knexfile.ts"],
   "exclude": ["node_modules"]
