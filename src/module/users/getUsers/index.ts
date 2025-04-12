@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+
 import { Error } from "../../../typing";
 import { Status } from "../../../utils";
 import { db } from "./../../../database";
+
 import { GetUsersResponse, GetUsersResquest, User } from "./interfaces";
 
 const getUsers = async (
@@ -20,4 +22,3 @@ const getUsers = async (
 };
 
 export { getUsers };
-

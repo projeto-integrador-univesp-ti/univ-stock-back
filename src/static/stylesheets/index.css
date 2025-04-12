@@ -1,8 +1,58 @@
 body {
-  padding: 50px;
+  margin: 20px;
   font: 1rem "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 h1 {
   color: #00B7FF;
+  font-size: 1.5rem;
+}
+
+.accordion-header, .endpoint-resume {
+  cursor: pointer;
+  background-color: #84adbe;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-weight: bold;
+  user-select: none;
+}
+
+.endpoint-resume p {
+  margin-bottom: 0;
+}
+
+.accordion-content, .endpoint-details {
+  display: none;
+  background: #f8f8f8;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.method {
+  background-color: #28a745;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+.path {
+  color: #333;
+  font-weight: bold;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.endpoint-resume {
+  
 }

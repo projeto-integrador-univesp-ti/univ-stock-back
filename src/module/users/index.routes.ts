@@ -1,10 +1,12 @@
 import { Router } from 'express';
+import { addUser } from './addUser';
 import { getUser } from './getUser';
 import { getUsers } from './getUsers';
 
-const route = Router()
+const router = Router()
 
-// route.post('/', getUsers)
-route.post('/', getUser)
+router.post('/', addUser)
+router.get('/', getUsers)
+router.get('/:id', getUser)
 
-export default route
+export default router

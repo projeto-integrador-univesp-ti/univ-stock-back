@@ -4,7 +4,8 @@ const commom = {
   client: "mysql2",
   connection: {
     user: "root",
-    password: "123456"
+    password: "123456",
+    database: 'ministock'
   },
   pool: {
     min: 2,

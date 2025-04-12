@@ -2,10 +2,66 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='index.css' />
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Aplicação backend para projeto integrador Univesp.</p>
+    <hr />
+
+    <h1>Módulos e Endpoints</h1>
+
+    <% modules.forEach((module, moduleIndex) => { %>
+    <div class="module">
+      <div class="accordion-header" onclick="toggleModule(<%= moduleIndex %>)">
+        <%= module.module %>
+      </div>
+
+      <div class="accordion-content" id="module-<%= moduleIndex %>">
+        <% module.endpoinst.forEach((endpoint, endpointIndex) => { %>
+        <div class="endpoint">
+          <div
+            class="endpoint-resume"
+            onclick="toggleEndpoint(<%= moduleIndex %>, <%= endpointIndex %>)"
+          >
+            <span class="method"><%= endpoint.method %></span>
+            <span class="path"><%= endpoint.path %></span>
+            <p><%= endpoint.description || "Sem descrição" %></p>
+          </div>
+
+          <div
+            class="endpoint-details"
+            id="endpoint-<%= moduleIndex %>-<%= endpointIndex %>"
+          >
+            <h4>Request Params:</h4>
+            <pre><%= JSON.stringify(endpoint.request.params, null, 2) %></pre>
+
+            <h4>Request Body:</h4>
+            <pre><%= JSON.stringify(endpoint.request.body, null, 2) %></pre>
+
+            <h4>Response:</h4>
+            <pre><%= JSON.stringify(endpoint.response, null, 2) %></pre>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <% }) %>
+
+    <script>
+      function toggleModule(index) {
+        const content = document.getElementById("module-" + index);
+        content.style.display =
+          content.style.display === "block" ? "none" : "block";
+      }
+
+      function toggleEndpoint(moduleIndex, endpointIndex) {
+        const content = document.getElementById(
+          `endpoint-${moduleIndex}-${endpointIndex}`
+        );
+        content.style.display =
+          content.style.display === "block" ? "none" : "block";
+      }
+    </script>
   </body>
 </html>

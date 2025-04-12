@@ -2,12 +2,9 @@ import cookieParser from "cookie-parser";
 import express, { NextFunction, Request, Response } from "express";
 import createError, { HttpError } from "http-errors";
 import { StatusCodes } from "http-status-codes";
-import logger from "morgan";
 import path from "path";
-
-import indexRouter from "./module/version/index.routes";
-import usersRouter from "./module/users/index.routes";
-import { BaseRoute } from "./typing";
+import { router } from "./routes";
+import { camelToSnakeCase, recursiveObjectTo } from "./utils/format";
 
 const app = express();
 
@@ -16,15 +13,33 @@ app.set("views", path.join("src", "static", "views"));
 app.set("view engine", "ejs");
 
 // Middleware
-app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join("src", "static", "stylesheets")));
 
+// Tratamento de retorno
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, OPTIONS, PATCH, DELETE, POST, PUT"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+  );
+  req.body = recursiveObjectTo(req.body, camelToSnakeCase);
+  next();
+});
+
 // Rotas
-app.use(BaseRoute.version, indexRouter);
-app.use(BaseRoute.user, usersRouter);
+app.use("/v1", router);
 
 // Captura de erro 404 e encaminhamento para o manipulador de erros
 app.use((req: Request, res: Response, next: NextFunction) => {

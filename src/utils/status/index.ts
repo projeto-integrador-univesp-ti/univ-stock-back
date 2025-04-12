@@ -6,12 +6,14 @@ import { ZodFormattedError } from "zod";
 
 const getResponse = (statusCode: typeof StatusCodes | number, data: any, error?: Error) => {
   if (error) {
+    console.log(error)
     if (process.env.ENVIRONMENT !== "prd") {
       return {
         message: error.message,
         code: error.code,
         status: statusCode,
         reason: `${statusCode} - ${getReasonPhrase(statusCode as unknown as number)}`,
+        validations: error.validations,
         error: true,
       };
     }
