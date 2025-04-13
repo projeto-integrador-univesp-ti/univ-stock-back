@@ -6,6 +6,23 @@ const home = async (_: Request, res: Response) => {
   try {
     const modules: Module[] = [
       {
+        module: "Auth",
+        endpoinst: [
+          {
+            path: "/exists",
+            method: "POST",
+            description: "Verifica se um e-mail já está cadastrado.",
+            request: {
+              params: {},
+              body: { email: "string" },
+            },
+            response: {
+              data: { exists: "boolean" },
+            },
+          },
+        ],
+      },
+      {
         module: "User",
         endpoinst: [
           {
@@ -25,13 +42,15 @@ const home = async (_: Request, res: Response) => {
             method: "GET",
             description: "Recupera um usuário específico.",
             request: {
-              params: { id: 'string' },
+              params: { id: "string" },
               body: {},
             },
             response: {
-              id: "string",
-              nome: "string",
-              dtNascimento: "date",
+              data: {
+                id: "string",
+                nome: "string",
+                dtNascimento: "date",
+              },
             },
           },
           {
@@ -43,9 +62,11 @@ const home = async (_: Request, res: Response) => {
               body: {},
             },
             response: {
-              id: "string",
-              nome: "string",
-              dtNascimento: "date",
+              data: {
+                id: "string",
+                nome: "string",
+                dtNascimento: "date",
+              },
             },
           },
         ],

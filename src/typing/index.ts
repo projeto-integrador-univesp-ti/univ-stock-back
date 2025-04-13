@@ -8,7 +8,7 @@ interface Error {
 
 enum BaseRoute {
   version = "/",
-  authentication = "/authentication",
+  authentication = "/auth",
   user = "/user",
   product = "/product",
 }
