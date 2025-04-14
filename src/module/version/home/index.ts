@@ -59,7 +59,10 @@ const home = async (_: Request, res: Response) => {
             description: "Adiciona um usuário.",
             request: {
               params: {},
-              body: {},
+              body: {
+                nome: "string",
+                dtNascimento: "date",
+              },
             },
             response: {
               data: {
