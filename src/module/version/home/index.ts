@@ -127,6 +127,50 @@ const home = async (_: Request, res: Response) => {
           },
         ],
       },
+      {
+        module: "Batch",
+        endpoinst: [
+          {
+            path: "/batch",
+            method: "POST",
+            description: "Adiciona um lote.",
+            request: {
+              params: {},
+              body: {
+                dt_fabricacao: "Date",
+                dt_validade: "Date",
+                id_produto: "number",
+              },
+            },
+            response: {
+              mensagem: 'string',
+              data: {
+                id: 'string',
+                dt_fabricacao: "Date",
+                dt_validade: "Date",
+                id_produto: "number",
+              }
+            },
+          },
+          {
+            path: "/batch",
+            method: "GET",
+            description: "Recupera todos os lotes.",
+            request: {
+              params: {},
+              body: {},
+            },
+            response: {
+              data: [{
+                id: 'string',
+                dt_fabricacao: "Date",
+                dt_validade: "Date",
+                id_produto: "number",
+              }]
+            },
+          },
+        ],
+      },
     ];
     res.render("index", { title: "Mini Stock", modules });
   } catch (error) {
