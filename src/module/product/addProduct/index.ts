@@ -4,6 +4,7 @@ import { Error } from "../../../typing";
 import { Status } from "../../../utils";
 import { db } from "../../../database";
 import { AddProductRequest, AddProductResponse, Product } from "./interfaces";
+import { ulid } from "ulid";
 
 const addProduct = async (
   req: Request<AddProductRequest>,
@@ -47,7 +48,7 @@ const addProduct = async (
         .json(Status.error("PROD1005", "Preço inválido (máximo 5 dígitos)"));
     }
 
-    if (perecivel == undefined || typeof perecivel !== "boolean") {
+    if (perecivel == undefined || typeof perecivel !== "number") {
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json(
@@ -70,7 +71,7 @@ const addProduct = async (
     }
 
     const produto: Product = {
-      id: "",
+      id: ulid(),
       nome,
       marca,
       quantidade,

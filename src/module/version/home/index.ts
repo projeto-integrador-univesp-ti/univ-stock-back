@@ -83,9 +83,47 @@ const home = async (_: Request, res: Response) => {
             description: "Adiciona um produto.",
             request: {
               params: {},
+              body: {
+                nome: 'string',
+                marca: 'string',
+                quantidade: 'string',
+                precoUnidade: 'number',
+                perecivel: 'number',
+                idMedida: 'number',
+              },
+            },
+            response: {
+              mensagem: 'string',
+              data: {
+                id: 'string',
+                nome: 'string',
+                marca: 'string',
+                quantidade: 'string',
+                precoUnidade: 'number',
+                perecivel: 'number',
+                idMedida: 'number',
+              }
+            },
+          },
+          {
+            path: "/product",
+            method: "GET",
+            description: "Recupera todos os produtos.",
+            request: {
+              params: {},
               body: {},
             },
-            response: {},
+            response: {
+              data: [{
+                id: 'string',
+                nome: 'string',
+                marca: 'string',
+                quantidade: 'string',
+                precoUnidade: 'number',
+                perecivel: 'number',
+                idMedida: 'number',
+              }]
+            },
           },
         ],
       },
