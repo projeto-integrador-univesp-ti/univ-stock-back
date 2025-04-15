@@ -11,6 +11,7 @@ enum BaseRoute {
   authentication = "/auth",
   user = "/user",
   product = "/product",
+  batch = "/batch",
 }
 
 export { BaseRoute, Error };

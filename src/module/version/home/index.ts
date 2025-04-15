@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { getReasonPhrase, StatusCodes } from "http-status-codes";
 import { Module } from "./interfaces";
+import { object } from "zod";
 
 const home = async (_: Request, res: Response) => {
   try {
@@ -122,6 +123,53 @@ const home = async (_: Request, res: Response) => {
                 precoUnidade: 'number',
                 perecivel: 'number',
                 idMedida: 'number',
+              }]
+            },
+          },
+        ],
+      },
+      {
+        module: "Batch",
+        endpoinst: [
+          {
+            path: "/batch",
+            method: "POST",
+            description: "Adiciona um lote.",
+            request: {
+              params: {},
+              body: {
+                dt_fabricacao: "Date",
+                dt_validade: "Date",
+                observacoes: "string",
+                id_produto: "number",
+              },
+            },
+            response: {
+              mensagem: 'string',
+              data: {
+                id: 'string',
+                dt_fabricacao: "Date",
+                dt_validade: "Date",
+                observacoes: "string",
+                id_produto: "number",
+              }
+            },
+          },
+          {
+            path: "/batch",
+            method: "GET",
+            description: "Recupera todos os lotes.",
+            request: {
+              params: {},
+              body: {},
+            },
+            response: {
+              data: [{
+                id: 'string',
+                dt_fabricacao: "Date",
+                dt_validade: "Date",
+                observacoes: "string",
+                id_produto: "number",
               }]
             },
           },
