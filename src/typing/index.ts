@@ -13,6 +13,7 @@ enum BaseRoute {
   product = "/product",
   batch = "/batch",
   measure = "/measure",
+  supplier = "/supplier",
 }
 
 export { BaseRoute, Error };
