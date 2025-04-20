@@ -175,6 +175,47 @@ const home = async (_: Request, res: Response) => {
           },
         ],
       },
+      {
+        module: "Measure",
+        endpoinst: [
+          {
+            path: "/measure",
+            method: "POST",
+            description: "Adiciona uma medida.",
+            request: {
+              params: {},
+              body: {
+                nome: 'string',
+                sigla: 'string',
+              },
+            },
+            response: {
+              mensagem: 'string',
+              data: {
+                id: 'string',
+                nome: 'string',
+                sigla: 'string',
+              }
+            },
+          },
+          {
+            path: "/measure",
+            method: "GET",
+            description: "Recupera todas as medidas.",
+            request: {
+              params: {},
+              body: {},
+            },
+            response: {
+              data: [{
+                id: 'string',
+                nome: 'string',
+                sigla: 'string',
+              }]
+            },
+          },
+        ],
+      },
     ];
     res.render("index", { title: "Mini Stock", modules });
   } catch (error) {
