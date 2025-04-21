@@ -9,6 +9,7 @@ import usersRouter from './module/users/index.routes'
 import batchRouter from './module/batch/index.routes'
 import measureRouter from './module/measure/index.routes'
 import supplierRouter from './module/supplier/index.routes'
+import loginRouter from './module/login/index.routes'
 
 const router = Router();
 router.use(status);
@@ -20,5 +21,6 @@ router.use(BaseRoute.user, usersRouter);
 router.use(BaseRoute.batch, batchRouter);
 router.use(BaseRoute.measure, measureRouter);
 router.use(BaseRoute.supplier, supplierRouter);
+router.use(BaseRoute.login, loginRouter);
 
 export { router };

@@ -216,6 +216,47 @@ const home = async (_: Request, res: Response) => {
           },
         ],
       },
+      {
+        module: "Login",
+        endpoinst: [
+          {
+            path: "/login",
+            method: "POST",
+            description: "Adiciona um login.",
+            request: {
+              params: {},
+              body: {
+                email: "string",
+                dt_ultimo_acesso: "Date",
+              },
+            },
+            response: {
+              mensagem: 'string',
+              data: {
+                id_usuario: 'string',
+                email: "string",
+                dt_ultimo_acesso: "Date",
+              }
+            },
+          },
+          {
+            path: "/login",
+            method: "GET",
+            description: "Recupera todos os logins.",
+            request: {
+              params: {},
+              body: {},
+            },
+            response: {
+              data: [{
+                id_usuario: 'string',
+                email: "string",
+                dt_ultimo_acesso: "Date",
+              }]
+            },
+          },
+        ],
+      },
     ];
     res.render("index", { title: "Mini Stock", modules });
   } catch (error) {
