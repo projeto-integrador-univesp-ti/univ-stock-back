@@ -257,6 +257,53 @@ const home = async (_: Request, res: Response) => {
           },
         ],
       },
+      {
+        module: "Movement",
+        endpoinst: [
+          {
+            path: "/movement",
+            method: "POST",
+            description: "Adiciona uma movimentação.",
+            request: {
+              params: {},
+              body: {
+                id_produto: "string",
+                id_usuario: "string",
+                email: "string",
+                movimento: "Enumerator",
+              },
+            },
+            response: {
+              mensagem: 'string',
+              data: {
+                id: "string",
+                id_produto: "string",
+                id_usuario: "string",
+                email: "string",
+                movimento: "Enumerator",
+              }
+            },
+          },
+          {
+            path: "/movement",
+            method: "GET",
+            description: "Recupera todos as movimentações.",
+            request: {
+              params: {},
+              body: {},
+            },
+            response: {
+              data: [{
+                id: "string",
+                id_produto: "string",
+                id_usuario: "string",
+                email: "string",
+                movimento: "Enumerator",
+              }]
+            },
+          },
+        ],
+      },
     ];
     res.render("index", { title: "Mini Stock", modules });
   } catch (error) {
