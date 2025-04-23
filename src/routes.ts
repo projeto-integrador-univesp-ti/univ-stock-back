@@ -11,6 +11,8 @@ import measureRouter from './module/measure/index.routes'
 import supplierRouter from './module/supplier/index.routes'
 import loginRouter from './module/login/index.routes'
 import movementRouter from './module/movement/index.routes'
+import contactRouter from './module/contact/index.routes'
+import contactTypeRouter from './module/contact type/index.routes'
 
 const router = Router();
 router.use(status);
@@ -23,6 +25,8 @@ router.use(BaseRoute.batch, batchRouter);
 router.use(BaseRoute.measure, measureRouter);
 router.use(BaseRoute.supplier, supplierRouter);
 router.use(BaseRoute.login, loginRouter);
-router.use(BaseRoute.movement, loginRouter);
+router.use(BaseRoute.movement, movementRouter);
+router.use(BaseRoute.contact, contactRouter);
+router.use(BaseRoute.contactType, contactTypeRouter);
 
 export { router };

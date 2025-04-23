@@ -304,6 +304,85 @@ const home = async (_: Request, res: Response) => {
           },
         ],
       },
+      {
+        module: "Contact",
+        endpoinst: [
+          {
+            path: "/contact",
+            method: "POST",
+            description: "Adiciona um contato.",
+            request: {
+              params: {},
+              body: {
+                id_tipo_contato: "number",
+                nome: "string",
+              },
+            },
+            response: {
+              mensagem: 'string',
+              data: {
+                id: 'string',
+                id_tipo_contato: "number",
+                nome: "string",
+              }
+            },
+          },
+          {
+            path: "/contact",
+            method: "GET",
+            description: "Recupera todos os contatos.",
+            request: {
+              params: {},
+              body: {},
+            },
+            response: {
+              data: [{
+                id: 'string',
+                id_tipo_contato: "number",
+                nome: "string",
+              }]
+            },
+          },
+        ],
+      },
+      {
+        module: "ContactType",
+        endpoinst: [
+          {
+            path: "/contact type",
+            method: "POST",
+            description: "Adiciona um tipo de contato.",
+            request: {
+              params: {},
+              body: {
+                nome: "string",
+              },
+            },
+            response: {
+              mensagem: 'string',
+              data: {
+                id: 'string',
+                nome: "string",
+              }
+            },
+          },
+          {
+            path: "/contact type",
+            method: "GET",
+            description: "Recupera todos os tipos de contatos.",
+            request: {
+              params: {},
+              body: {},
+            },
+            response: {
+              data: [{
+                id: 'string',
+                nome: "number",
+              }]
+            },
+          },
+        ],
+      },
     ];
     res.render("index", { title: "Mini Stock", modules });
   } catch (error) {
