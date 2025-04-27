@@ -48,7 +48,7 @@ const addProduct = async (
         .json(Status.error("PROD1005", "Preço inválido (máximo 5 dígitos)"));
     }
 
-    if (perecivel == undefined || typeof perecivel !== "number") {
+    if (perecivel == undefined || typeof perecivel !== "boolean") {
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json(
