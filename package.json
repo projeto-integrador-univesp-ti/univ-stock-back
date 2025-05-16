@@ -11,8 +11,10 @@
     "db:clear": "find src/database -type f -name '*.js' ! -path '*/dist/*' ! -path '*/node_modules/*' -exec rm -f {} + && rm -f knexfile.js"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "chalk": "4.1.2",
     "cookie-parser": "1.4.7",
+    "crypto": "^1.0.1",
     "ejs": "3.1.10",
     "express": "5.1.0",
     "http-errors": "1.6.3",
@@ -25,6 +27,7 @@
     "zod": "3.24.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/chalk": "0.4.31",
     "@types/cookie-parser": "1.4.8",
     "@types/express": "5.0.1",
