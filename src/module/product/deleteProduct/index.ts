@@ -3,11 +3,16 @@ import { StatusCodes } from "http-status-codes";
 import { db } from "../../../database";
 import { Status } from "../../../utils";
 
-import { Product } from "./interfaces";
+import {
+  Product,
+  DeleteProductRequest,
+  DeleteProductResponse,
+} from "./interfaces";
+import { Error } from "../../../typing";
 
 const deleteProduct = async (
-  req: Request<{id: string }, {}, {}, {}>,
-  res: Response
+  req: Request<DeleteProductRequest>,
+  res: Response<DeleteProductResponse | Error>
 ) => {
   try {
     const { id } = req.params;
@@ -15,7 +20,7 @@ const deleteProduct = async (
     const produto = await db<Product>("produtos").where({ id }).first();
 
     if (!produto) {
-      return res
+      res
         .status(StatusCodes.NOT_FOUND)
         .json(Status.error("PROD1009", "Produto não encontrado"));
     }
@@ -23,7 +28,9 @@ const deleteProduct = async (
     await db<Product>("produtos").where({ id }).delete();
 
     res.status(StatusCodes.OK).json({
-      message: "Produto removido com sucesso",
+      data: {
+        message: "Produto removido com sucesso",
+      },
     });
   } catch (err: any) {
     res
