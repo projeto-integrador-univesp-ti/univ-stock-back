@@ -12,7 +12,7 @@ import supplierRouter from './module/supplier/index.routes'
 import loginRouter from './module/login/index.routes'
 import movementRouter from './module/movement/index.routes'
 import contactRouter from './module/contact/index.routes'
-import contactTypeRouter from './module/contact type/index.routes'
+import contactTypeRouter from './module/contactType/index.routes'
 
 const router = Router();
 router.use(status);
