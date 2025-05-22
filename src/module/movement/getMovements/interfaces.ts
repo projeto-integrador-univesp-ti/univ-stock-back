@@ -1,3 +1,8 @@
+enum MovementType {
+  ENTRADA = 'ENTRADA', 
+  SAIDA = 'SAIDA',
+}
+
 interface GetMovementsRequest {}
 
 interface GetMovementsResponse {
@@ -8,8 +13,9 @@ type Movement = {
   id: string;
   id_produto: string;
   id_usuario: string;
-  email: String;
-  movimento: Enumerator;
+  email: string;
+  movimento: MovementType;
+  quantidade: number;
 };
 
 export { GetMovementsRequest, GetMovementsResponse, Movement };

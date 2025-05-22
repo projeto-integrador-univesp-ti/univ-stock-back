@@ -19,8 +19,8 @@ const createTables = async () => {
       table.string("id", 26).primary();
       table.string("nome", 45).notNullable();
       table.string("marca", 45).notNullable();
-      table.string("quantidade", 45).nullable();
-      table.decimal("preco_unidade", 5).nullable();
+      table.decimal("quantidade", 10, 2).nullable();
+      table.decimal("preco_unidade", 10, 2).nullable();
       table.boolean("perecivel").nullable();
       table.integer("id_medida").notNullable();
       table.foreign("id_medida").references("Medidas.id");
@@ -84,10 +84,10 @@ const createTables = async () => {
 
   if (!(await db.schema.hasTable("ContatosFornecedores"))) {
     await db.schema.createTable("ContatosFornecedores", (table) => {
-      table.string("id_forncedor", 26).notNullable();
+      table.string("id_fornecedor", 26).notNullable();
       table.string("id_contato", 26).notNullable();
-      table.primary(["id_forncedor", "id_contato"]);
-      table.foreign("id_forncedor").references("Fornecedores.id");
+      table.primary(["id_fornecedor", "id_contato"]);
+      table.foreign("id_fornecedor").references("Fornecedores.id");
       table.foreign("id_contato").references("Contatos.id");
     });
   }
@@ -103,7 +103,7 @@ const createTables = async () => {
   if (!(await db.schema.hasTable("Autenticacao"))) {
     await db.schema.createTable("Autenticacao", (table) => {
       table.string("email", 60).primary();
-      table.string("senha", 15).notNullable();
+      table.string("senha", 60).notNullable();
       table.boolean("email_validado").defaultTo(0).notNullable();
     });
   }
