@@ -11,7 +11,7 @@ const addMovement = async (
   res: Response<AddMovementResponse>
 ) => {
   try {
-    const { id_produto, id_usuario, email, movimento } =
+    const { id_produto, id_usuario, email, movimento, quantidade } =
       req.body;    
 
     if (!email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -40,6 +40,7 @@ const addMovement = async (
       id_usuario,
       email,
       movimento,
+      quantidade,
     };
 
     await db<Movement>("movimentacoes").insert(movimentacao);

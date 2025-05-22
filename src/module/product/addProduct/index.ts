@@ -11,8 +11,15 @@ const addProduct = async (
   res: Response<AddProductResponse>
 ) => {
   try {
-    const { nome, marca, quantidade, preco_unidade, perecivel, id_medida } =
-      req.body;
+    const {
+      nome,
+      marca,
+      codigo,
+      quantidade,
+      preco_unidade,
+      perecivel,
+      id_medida,
+    } = req.body;
 
     if (!nome || nome.length > 45) {
       res
@@ -74,6 +81,7 @@ const addProduct = async (
       id: ulid(),
       nome,
       marca,
+      codigo,
       quantidade,
       preco_unidade,
       perecivel,
