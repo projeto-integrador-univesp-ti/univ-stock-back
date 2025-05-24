@@ -1,5 +1,5 @@
 interface GetProductRequest {
-  id: string;
+  code: string;
 }
 
 interface GetProductResponse {

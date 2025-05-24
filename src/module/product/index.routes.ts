@@ -11,7 +11,7 @@ const router = Router()
 
 router.post('/', addProduct)
 router.get('/', getProducts)
-router.get('/:id', getProduct)
+router.get('/:code', getProduct)
 router.delete('/:id', deleteProduct)
 router.put('/:id', updateProduct)
 router.patch("/decrease", decreaseProduct)

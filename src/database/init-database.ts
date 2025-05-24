@@ -18,7 +18,8 @@ const createTables = async () => {
     await db.schema.createTable("Produtos", (table) => {
       table.string("id", 26).primary();
       table.string("nome", 45).notNullable();
-      table.string("marca", 45).notNullable();
+      table.string("marca", 45).nullable();
+      table.string("codigo", 45).notNullable();
       table.decimal("quantidade", 10, 2).nullable();
       table.decimal("preco_unidade", 10, 2).nullable();
       table.boolean("perecivel").nullable();

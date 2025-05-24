@@ -12,8 +12,8 @@ const getProduct = async (
   res: Response<GetProductResponse | Error>
 ) => {
   try {
-    const { id } = req.params;
-    const produto = await db<Product>("produtos").where("id", id).first();
+    const { code } = req.params;
+    const produto = await db<Product>("produtos").where("codigo", code).first();
     if (!produto) {
       res
         .status(StatusCodes.NOT_FOUND)

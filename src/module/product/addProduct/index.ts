@@ -32,17 +32,6 @@ const addProduct = async (
         );
     }
 
-    if (!marca || marca.length > 45) {
-      res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(
-          Status.error(
-            "PROD1003",
-            "Marca inválida ou ausente (máximo 45 caracteres)"
-          )
-        );
-    }
-
     if (!quantidade || quantidade.toString().length > 45) {
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
