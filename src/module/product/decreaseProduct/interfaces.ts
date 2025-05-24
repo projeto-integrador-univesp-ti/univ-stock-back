@@ -1,5 +1,5 @@
 interface DecreaseProductRequest extends Product {
-  products: Product[];
+  produtos: Product[];
 }
 
 interface DecreaseProductResponse {
@@ -8,7 +8,7 @@ interface DecreaseProductResponse {
 
 type Product = {
   id: string;
-  amount: number;
+  quantidade: number;
 };
 
 export { Product, DecreaseProductRequest, DecreaseProductResponse };

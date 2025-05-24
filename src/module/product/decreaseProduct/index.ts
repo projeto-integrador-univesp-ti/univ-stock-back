@@ -11,38 +11,39 @@ const decreaseProduct = async (
   req: Request<DecreaseProductRequest>,
   res: Response<DecreaseProductResponse | Error>
 ) => {
-  const result = DecreaseSchema.safeParse(req.body.products);
-
+  const result = DecreaseSchema.safeParse(req.body.produtos);
   if (result.error) {
     res
-      .status(StatusCodes.BAD_REQUEST)
-      .json(
-        Status.error("PROD5001", `Parâmetro inválido:`, result.error.format())
-      );
+    .status(StatusCodes.BAD_REQUEST)
+    .json(
+      Status.error("PROD5001", `Parâmetro inválido:`, result.error.format())
+    );
   }
-
-  const products = req.body.products;
-
+  
+  const produtos = req.body.produtos;
+  
   const trx = await db.transaction();
-
+  
   try {
-    const productIds = products.map((p: any) => p.id);
-    const currentStocks = await trx("produtos")
-      .whereIn("id", productIds)
-      .select("id", "quantidade");
+    const codigosProdutos = produtos.map((p: any) => p.codigo);
 
-    const updatedStocks = currentStocks.reduce((acc, product) => {
-      const requestProduct = products.find((p: any) => p.id === product.id);
-      if (requestProduct && product.quantidade >= requestProduct.amount) {
+    const currentStocks = await trx("produtos")
+      .whereIn("codigo", codigosProdutos)
+      .select("codigo", "quantidade");
+
+    const updatedStocks = currentStocks.reduce((acc, produto) => {
+      const requestProduct = produtos.find((p: any) => p.codigo === produto.codigo);      
+      if (requestProduct && Number(produto.quantidade) >= requestProduct.quantidade) {
         acc.push({
-          id: product.id,
-          newQuantity: product.quantidade - requestProduct.amount,
+          codigo: produto.codigo,
+          quantidade: produto.quantidade - requestProduct.quantidade,
         });
       }
-      acc;
+      return acc;
     }, []);
+    
 
-    if (updatedStocks.length !== products.length) {
+    if (updatedStocks.length !== produtos.length) {
       await trx.rollback();
       res
         .status(StatusCodes.BAD_REQUEST)
@@ -51,8 +52,8 @@ const decreaseProduct = async (
 
     const updatePromises = updatedStocks.map((stock: any) =>
       trx("produtos")
-        .where({ id: stock.id })
-        .update({ quantidade: stock.newQuantity })
+        .where({ codigo: stock.codigo })
+        .update({ quantidade: stock.quantidade })
     );
 
     await Promise.all(updatePromises);
