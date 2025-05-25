@@ -18,6 +18,7 @@ enum BaseRoute {
   movement = "/movement",
   contact = "/contact",
   contactType = "/contactType",
+  sale = "/sales",
 }
 
 export { BaseRoute, Error };

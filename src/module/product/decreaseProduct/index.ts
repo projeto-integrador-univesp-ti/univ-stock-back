@@ -20,7 +20,7 @@ const decreaseProduct = async (
     );
   }
   
-  const produtos = req.body.produtos;
+  const produtos = result.data!;
   
   const trx = await db.transaction();
   
@@ -60,7 +60,7 @@ const decreaseProduct = async (
     await trx.commit();
 
     res
-      .status(200)
+      .status(StatusCodes.OK)
       .json({ data: { message: "Baixas aplicadas com sucesso." } });
   } catch (err: any) {
     await trx.rollback();

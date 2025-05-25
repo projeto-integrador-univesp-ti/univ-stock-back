@@ -156,7 +156,7 @@ const createTables = async () => {
 
   if (!(await db.schema.hasTable("ProdutosVendas"))) {
     await db.schema.createTable("ProdutosVendas", (table) => {
-      table.string("id_venda", 26).notNullable();
+      table.string("id_venda", 45).notNullable();
       table.string("id_produto", 26).notNullable();
       table.integer("id_medida").notNullable();
       table.integer("quantidade").unsigned().notNullable();

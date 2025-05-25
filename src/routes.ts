@@ -13,6 +13,7 @@ import loginRouter from './module/login/index.routes'
 import movementRouter from './module/movement/index.routes'
 import contactRouter from './module/contact/index.routes'
 import contactTypeRouter from './module/contactType/index.routes'
+import salesRouter from './module/sales/index.routes'
 
 const router = Router();
 router.use(status);
@@ -28,5 +29,6 @@ router.use(BaseRoute.login, loginRouter);
 router.use(BaseRoute.movement, movementRouter);
 router.use(BaseRoute.contact, contactRouter);
 router.use(BaseRoute.contactType, contactTypeRouter);
+router.use(BaseRoute.sale, salesRouter);
 
 export { router };
