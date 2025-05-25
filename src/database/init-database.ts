@@ -9,8 +9,8 @@ const createTables = async () => {
   if (!(await db.schema.hasTable("Medidas"))) {
     await db.schema.createTable("Medidas", (table) => {
       table.integer("id").primary();
-      table.string("nome", 15).nullable();
-      table.string("sigla", 10).nullable();
+      table.string("nome", 15);
+      table.string("sigla", 10);
     });
   }
 
@@ -18,11 +18,12 @@ const createTables = async () => {
     await db.schema.createTable("Produtos", (table) => {
       table.string("id", 26).primary();
       table.string("nome", 45).notNullable();
-      table.string("marca", 45).nullable();
+      table.decimal("quantidade", 10, 2);
+      table.decimal("preco_unidade", 10, 2);
       table.string("codigo", 45).notNullable();
-      table.decimal("quantidade", 10, 2).nullable();
-      table.decimal("preco_unidade", 10, 2).nullable();
-      table.boolean("perecivel").nullable();
+      table.string("codigo_barras", 15);
+      table.string("marca", 45).nullable();
+      table.boolean("perecivel");
       table.integer("id_medida").notNullable();
       table.foreign("id_medida").references("Medidas.id");
     });
@@ -32,9 +33,9 @@ const createTables = async () => {
     await db.schema.createTable("Lotes", (table) => {
       table.string("id", 26).primary();
       table.string("id_produto", 26).notNullable();
-      table.date("dt_fabricacao").nullable();
-      table.date("dt_validade").nullable();
-      table.string("observacoes", 255).nullable();
+      table.date("dt_fabricacao");
+      table.date("dt_validade");
+      table.string("observacoes", 255);
       table.foreign("id_produto").references("Produtos.id");
     });
   }
@@ -42,7 +43,7 @@ const createTables = async () => {
   if (!(await db.schema.hasTable("Fornecedores"))) {
     await db.schema.createTable("Fornecedores", (table) => {
       table.string("id", 26).primary();
-      table.string("cnpj", 14).nullable();
+      table.string("cnpj", 14).nullable().unique();
       table.string("nome_razao_social", 80).nullable();
       table.string("nome_fantasia", 80).notNullable();
       table.string("cep_logradouro", 8).nullable();
@@ -53,7 +54,6 @@ const createTables = async () => {
       table.string("cidade_logradouro", 25).nullable();
       table.string("estado_logradouro", 25).nullable();
       table.string("observacoes", 255).nullable();
-      table.unique("cnpj");
     });
   }
 
@@ -143,6 +143,30 @@ const createTables = async () => {
         .references(["Login.id_usuario", "Login.email"]);
     });
   }
+
+  if (!(await db.schema.hasTable("Vendas"))) {
+    await db.schema.createTable("Vendas", (table) => {
+      table.string("id", 45).primary();
+      table.decimal("valor_total", 10, 2).notNullable();
+      table.decimal("valor_pago", 10, 2).notNullable();
+      table.decimal("troco", 10, 2).notNullable();
+      table.timestamp("data_venda").defaultTo(db.fn.now()).notNullable();
+    });
+  }
+
+  if (!(await db.schema.hasTable("ProdutosVendas"))) {
+    await db.schema.createTable("ProdutosVendas", (table) => {
+      table.string("id_venda", 26).notNullable();
+      table.string("id_produto", 26).notNullable();
+      table.integer("id_medida").notNullable();
+      table.integer("quantidade").unsigned().notNullable();
+      table.decimal("preco_unidade", 10, 2).notNullable();
+      table.primary(["id_venda", "id_produto"]);
+      table.foreign("id_venda").references("id").inTable("Vendas");
+      table.foreign("id_produto").references("id").inTable("Produtos");
+      table.foreign("id_medida").references("id").inTable("Medidas");
+    });
+  }
 };
 
 const insertDefaultData = async () => {
@@ -184,9 +208,8 @@ const run = async () => {
     console.log("Sucesso ao executar banco de dados!");
   } catch (err) {
     console.error("Erro ao executar banco de dados:", err);
-  }
-  finally{
-    db.destroy()
+  } finally {
+    db.destroy();
   }
 };
 
