@@ -4,6 +4,7 @@ interface GetSaleRequest {
 
 interface GetSaleResponse {
   data: {
+    id: string,
     troco: string;
     valor_total: string;
     valor_pago: string;

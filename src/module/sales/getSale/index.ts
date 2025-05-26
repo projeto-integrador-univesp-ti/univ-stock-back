@@ -45,6 +45,7 @@ const getSale = async (
 
     res.status(StatusCodes.OK).json({
       data: {
+        id: result.data!.id,
         troco: formatValues(venda.troco, 2),
         valor_total: formatValues(venda.valor_total, 2),
         valor_pago: formatValues(venda.valor_pago, 2),
@@ -53,8 +54,8 @@ const getSale = async (
           return {
             ...product,
             quantidade: formatValues(product.quantidade, 3),
-            preco_unidade: formatValues(product.preco_unidade, 2)
-          }
+            preco_unidade: formatValues(product.preco_unidade, 2),
+          };
         }),
       },
     });

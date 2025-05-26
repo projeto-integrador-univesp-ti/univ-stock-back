@@ -44,9 +44,9 @@ const addSale = async (
 
     await trx("ProdutosVendas").insert(produtosVenda);
     await trx.commit();
-    res
-      .status(StatusCodes.OK)
-      .json({ data: { message: "Venda registrada com sucesso." } });
+    res.status(StatusCodes.OK).json({
+      data: { idVenda: saleId },
+    });
   } catch (err: any) {
     await trx.rollback();
     res
