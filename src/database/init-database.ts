@@ -1,8 +1,8 @@
 import { db } from "./";
 
 const createDatabase = async () => {
-  await db.raw("CREATE DATABASE IF NOT EXISTS `MiniStock`");
-  await db.raw("USE `MiniStock`");
+  await db.raw("CREATE DATABASE IF NOT EXISTS `ndt6hcozk7ig1qfc`");
+  await db.raw("USE `ndt6hcozk7ig1qfc`");
 };
 
 const createTables = async () => {

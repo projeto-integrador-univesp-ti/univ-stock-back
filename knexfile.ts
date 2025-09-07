@@ -3,9 +3,11 @@ import type { Knex } from "knex";
 const commom = {
   client: "mysql2",
   connection: {
-    user: "root",
-    password: "123456",
-    database: 'ministock'
+    host: 'lgg2gx1ha7yp2w0k.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    user: "sx39u4vehwhtap8a",
+    password: "b1k30xiuuv172gqf",
+    database: 'ndt6hcozk7ig1qfc',
+    port: 3306
   },
   pool: {
     min: 2,
