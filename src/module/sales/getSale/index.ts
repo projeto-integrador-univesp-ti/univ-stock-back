@@ -22,7 +22,7 @@ const getSale = async (
   }
 
   try {
-    const venda: Sale = await db("Vendas")
+    const venda: Sale = await db("vendas")
       .select("valor_total", "valor_pago", "troco", "data_venda")
       .where("id", result.data?.id)
       .first();
@@ -33,9 +33,9 @@ const getSale = async (
         .json(Status.error("SALE2002", "Venda não encontrada."));
     }
 
-    const produtos: Product[] = await db("ProdutosVendas as pv")
-      .join("Produtos as p", "pv.id_produto", "p.id")
-      .join("Medidas as m", "pv.id_medida", "m.id")
+    const produtos: Product[] = await db("produtosvendas as pv")
+      .join("produtos as p", "pv.id_produto", "p.id")
+      .join("medidas as m", "pv.id_medida", "m.id")
       .select("p.nome", "m.sigla", "pv.quantidade", "pv.preco_unidade")
       .where("pv.id_venda", result.data?.id);
 

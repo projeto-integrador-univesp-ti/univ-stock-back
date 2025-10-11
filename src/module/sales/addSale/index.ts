@@ -26,7 +26,7 @@ const addSale = async (
   try {
     const saleId = generateOrderedUniqueNumericHash();
 
-    await trx("Vendas").insert({
+    await trx("vendas").insert({
       id: saleId,
       valor_total: result.data?.valor_total,
       valor_pago: result.data?.valor_pago,
@@ -42,7 +42,7 @@ const addSale = async (
       preco_unidade: produto.preco_unidade,
     }));
 
-    await trx("ProdutosVendas").insert(produtosVenda);
+    await trx("produtosvendas").insert(produtosVenda);
     await trx.commit();
     res.status(StatusCodes.OK).json({
       data: { idVenda: saleId },

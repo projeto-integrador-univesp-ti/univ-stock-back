@@ -42,7 +42,7 @@ async function runMigration() {
 
     if (action === Actions.EXEC) {
       console.log(`Executando migrações...`);
-      execSync(`npx  knex migrate:latest --knexfile knexfile.ts --env ${env}`, {
+      execSync(`npx  knex migrate:latest --knexfile knexfile.js --env ${env}`, {
         stdio: "inherit",
       });
       return;
