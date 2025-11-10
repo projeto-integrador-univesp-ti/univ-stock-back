@@ -126,6 +126,26 @@ const home = async (_: Request, res: Response) => {
               }]
             },
           },
+          {
+            path: "/product",
+            method: "PUT",
+            description: "Atualiza um produto.",
+            request: {
+              params: {},
+              body: {},
+            },
+            response: {
+              data: [{
+                id: 'string',
+                nome: 'string',
+                marca: 'string',
+                quantidade: 'string',
+                precoUnidade: 'number',
+                perecivel: 'number',
+                idMedida: 'number',
+              }]
+            },
+          },
         ],
       },
       {

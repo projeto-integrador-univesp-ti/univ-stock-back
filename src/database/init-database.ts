@@ -2,7 +2,7 @@ import { db } from "./";
 
 const createDatabase = async () => {
   // await db.raw("CREATE DATABASE IF NOT EXISTS `ndt6hcozk7ig1qfc`");
-  await db.raw("USE `ndt6hcozk7ig1qfc`");
+  await db.raw("USE `defaultdb`");
 };
 
 const createTables = async () => {

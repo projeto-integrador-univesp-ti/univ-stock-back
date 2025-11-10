@@ -1,13 +1,26 @@
 import type { Knex } from "knex";
+import { readFileSync } from "fs";
+import { resolve } from "path";
+import { config as dotenv_config } from "dotenv";
 
-const commom = {
+dotenv_config();
+
+const useSSL = process.env.DB_SSL === "true";
+const sslConfig = useSSL
+  ? {
+      ca: readFileSync(resolve(process.env.DB_SSL_PATH || "")),
+    }
+  : undefined;
+
+const common: Knex.Config = {
   client: "mysql2",
   connection: {
-    host: 'lgg2gx1ha7yp2w0k.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-    user: "sx39u4vehwhtap8a",
-    password: "b1k30xiuuv172gqf",
-    database: 'ndt6hcozk7ig1qfc',
-    port: 3306
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: Number(process.env.DB_PORT),
+    ssl: sslConfig,
   },
   pool: {
     min: 2,
@@ -18,10 +31,10 @@ const commom = {
   },
 };
 
-const config: { [key: string]: Knex.Config } = {
-  dev: { ...commom },
-  prd: { ...commom },
+const config: Record<string, Knex.Config> = {
+  dev: { ...common },
+  prd: { ...common },
 };
 
 export { config };
-export default config[process.env["ENVIRONMENT"] || 'dev'];
+export default config[process.env.ENVIRONMENT || "dev"];
