@@ -1,18 +1,21 @@
 interface AddBatchRequest {
-  dt_fabricacao: Date;
-  dt_validade: Date;
+  codigo?: string;
+  dt_fabricacao?: Date;
+  dt_validade?: Date;
   id_produto: number;
   observacoes: string;
 }
 
-interface AddBatchResponse { }
+interface AddBatchResponse {}
 
 type Batch = {
   id: string;
-  dt_fabricacao: Date;
-  dt_validade: Date;
+  codigo: string | null;
+  dt_fabricacao: Date | null;
+  dt_validade: Date | null;
   observacoes: string;
-  id_produto: number;
+  id_produto: string;
+  quantidade: number;
 };
 
 export { AddBatchRequest, AddBatchResponse, Batch };
