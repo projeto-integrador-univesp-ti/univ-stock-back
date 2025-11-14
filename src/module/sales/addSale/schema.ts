@@ -3,7 +3,7 @@ import { z } from "zod";
 const ProductSaleItemSchema = z.object({
   id_produto: z.string().max(26),
   id_medida: z.number().int().positive(),
-  quantidade: z.number().int().nonnegative(),
+  quantidade: z.number().nonnegative(),
   preco_unidade: z.number().nonnegative(),
 });
 

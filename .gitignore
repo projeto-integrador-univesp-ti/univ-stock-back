@@ -7,7 +7,7 @@ yarn-error.log*
 
 # Public dist
 public
-dist
+# dist
 
 # Runtime data
 pids

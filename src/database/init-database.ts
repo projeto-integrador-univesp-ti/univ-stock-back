@@ -1,8 +1,11 @@
 import { db } from "./";
+import { config as dotenv_config } from "dotenv";
+
+dotenv_config();
 
 const createDatabase = async () => {
   // await db.raw("CREATE DATABASE IF NOT EXISTS `ndt6hcozk7ig1qfc`");
-  await db.raw("USE `defaultdb`");
+  await db.raw(`USE \`${process.env.DB_NAME}\``);
 };
 
 const createTables = async () => {
@@ -18,12 +21,12 @@ const createTables = async () => {
     await db.schema.createTable("produtos", (table) => {
       table.string("id", 26).primary();
       table.string("nome", 45).notNullable();
-      table.decimal("quantidade", 10, 2);
+      table.decimal("quantidade", 10, 2).defaultTo(0.0);
+      table.decimal("quantidade_minima_estoque", 10, 2).defaultTo(0.0);
       table.decimal("preco_unidade", 10, 2);
-      table.string("codigo", 45).notNullable();
-      table.string("codigo_barras", 15);
+      table.string("codigo", 45).notNullable().unique();
       table.string("marca", 45).nullable();
-      table.boolean("perecivel");
+      table.boolean("perecivel").defaultTo(false);
       table.integer("id_medida").notNullable();
       table.foreign("id_medida").references("medidas.id");
     });
@@ -32,10 +35,12 @@ const createTables = async () => {
   if (!(await db.schema.hasTable("lotes"))) {
     await db.schema.createTable("lotes", (table) => {
       table.string("id", 26).primary();
+      table.string("codigo", 45).nullable();
       table.string("id_produto", 26).notNullable();
-      table.date("dt_fabricacao");
-      table.date("dt_validade");
-      table.string("observacoes", 255);
+      table.decimal("quantidade", 10, 2).notNullable().defaultTo(0);
+      table.date("dt_fabricacao").nullable();
+      table.date("dt_validade").nullable();
+      table.string("observacoes", 255).nullable();
       table.foreign("id_produto").references("produtos.id");
     });
   }
@@ -159,7 +164,7 @@ const createTables = async () => {
       table.string("id_venda", 45).notNullable();
       table.string("id_produto", 26).notNullable();
       table.integer("id_medida").notNullable();
-      table.integer("quantidade").unsigned().notNullable();
+      table.decimal("quantidade", 10, 2).unsigned().notNullable();
       table.decimal("preco_unidade", 10, 2).notNullable();
       table.primary(["id_venda", "id_produto"]);
       table.foreign("id_venda").references("id").inTable("vendas");
