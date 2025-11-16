@@ -54,13 +54,18 @@ const getSale = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 .status(http_status_codes_1.StatusCodes.NOT_FOUND)
                 .json(utils_1.Status.error("SALE2003", "Nenhuma venda encontrada."));
         }
+        const formatValues = (value, decimal) => {
+            return Number(value).toFixed(decimal).replace(".", ",");
+        };
         const response = yield Promise.all(vendas.map((venda) => __awaiter(void 0, void 0, void 0, function* () {
             const produtos = yield (0, database_1.db)("produtosvendas as pv")
                 .join("produtos as p", "pv.id_produto", "p.id")
                 .join("medidas as m", "pv.id_medida", "m.id")
                 .select("p.nome", "m.sigla", "pv.quantidade", "pv.preco_unidade")
                 .where("pv.id_venda", venda.id);
-            return Object.assign(Object.assign({}, venda), { data_venda: (0, date_1.formateISODate)(venda.data_venda), produtos });
+            return Object.assign(Object.assign({}, venda), { troco: formatValues(venda.troco, 2), valor_total: formatValues(venda.valor_total, 2), valor_pago: formatValues(venda.valor_pago, 2), data_venda: (0, date_1.formateISODate)(venda.data_venda), produtos: produtos.map((product) => {
+                    return Object.assign(Object.assign({}, product), { quantidade: formatValues(product.quantidade, 3), preco_unidade: formatValues(product.preco_unidade, 2) });
+                }) });
         })));
         res.status(http_status_codes_1.StatusCodes.OK).json({ data: response });
     }
