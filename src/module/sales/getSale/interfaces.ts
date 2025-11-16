@@ -1,19 +1,15 @@
 interface GetSaleRequest {
-  id: string;
+  id?: string;
+  dataInicio?: string;
+  dataFim?: string;
 }
 
 interface GetSaleResponse {
-  data: {
-    id: string,
-    troco: string;
-    valor_total: string;
-    valor_pago: string;
-    data_venda: string;
-    produtos: Product[];
-  };
+  data: SaleWithProducts[];
 }
 
 type Sale = {
+  id: string;
   valor_total: string;
   valor_pago: string;
   troco: string;
@@ -26,5 +22,9 @@ type Product = {
   quantidade: string;
   preco_unidade: string;
 };
+
+interface SaleWithProducts extends Sale {
+  produtos: Product[];
+}
 
 export { Sale, Product, GetSaleRequest, GetSaleResponse };

@@ -1,10 +1,11 @@
-import { Router } from 'express';
-import { addSale } from './addSale';
-import { getSale } from './getSale';
+import { Router } from "express";
+import { addSale } from "./addSale";
+import { getSale } from "./getSale";
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', getSale)
-router.post('/', addSale)
+router.get("/:id", getSale);
+router.get("/", getSale);
+router.post("/", addSale);
 
-export default router
+export default router;

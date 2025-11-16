@@ -1,3 +1,5 @@
+import { format, toZonedTime } from "date-fns-tz";
+
 const formateISODate = (dataIso: string): string => {
   const data = new Date(dataIso);
 
@@ -12,4 +14,11 @@ const formateISODate = (dataIso: string): string => {
   return `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
 };
 
-export { formateISODate };
+const nowBrazil = () => {
+  const timeZone = "America/Sao_Paulo";
+  const now = new Date();
+  const zoned = toZonedTime(now, timeZone);
+  return format(zoned, "yyyy-MM-dd HH:mm:ss", { timeZone });
+};
+
+export { formateISODate, nowBrazil };

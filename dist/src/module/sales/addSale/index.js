@@ -15,6 +15,7 @@ const http_status_codes_1 = require("http-status-codes");
 const utils_1 = require("../../../utils");
 const schema_1 = require("./schema");
 const generateOrderedUniqueNumericHash_1 = require("../../../utils/generateOrderedUniqueNumericHash");
+const date_1 = require("../../../utils/date");
 const addSale = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d;
     const result = schema_1.SaleSchema.safeParse(req.body);
@@ -31,7 +32,7 @@ const addSale = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             valor_total: (_a = result.data) === null || _a === void 0 ? void 0 : _a.valor_total,
             valor_pago: (_b = result.data) === null || _b === void 0 ? void 0 : _b.valor_pago,
             troco: (_c = result.data) === null || _c === void 0 ? void 0 : _c.troco,
-            data_venda: database_1.db.fn.now(),
+            data_venda: (0, date_1.nowBrazil)(),
         });
         const produtosVenda = (_d = result.data) === null || _d === void 0 ? void 0 : _d.produtos.map((produto) => ({
             id_venda: saleId,
