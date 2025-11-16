@@ -61,6 +61,10 @@ const getSale = async (
         .json(Status.error("SALE2003", "Nenhuma venda encontrada."));
     }
 
+    const formatValues = (value: string, decimal: number) => {
+      return Number(value).toFixed(decimal).replace(".", ",");
+    };
+
     const response = await Promise.all(
       vendas.map(async (venda) => {
         const produtos = await db("produtosvendas as pv")
@@ -71,8 +75,17 @@ const getSale = async (
 
         return {
           ...venda,
+          troco: formatValues(venda.troco, 2),
+          valor_total: formatValues(venda.valor_total, 2),
+          valor_pago: formatValues(venda.valor_pago, 2),
           data_venda: formateISODate(venda.data_venda),
-          produtos,
+          produtos: produtos.map((product) => {
+            return {
+              ...product,
+              quantidade: formatValues(product.quantidade, 3),
+              preco_unidade: formatValues(product.preco_unidade, 2),
+            };
+          }),
         };
       })
     );
