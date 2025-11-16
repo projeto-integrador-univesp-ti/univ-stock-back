@@ -6,6 +6,7 @@ import { Status } from "../../../utils";
 import { SaleSchema } from "./schema";
 import { Error } from "../../../typing";
 import { generateOrderedUniqueNumericHash } from "../../../utils/generateOrderedUniqueNumericHash";
+import { nowBrazil } from "../../../utils/date";
 
 const addSale = async (
   req: Request<AddSaleRequest>,
@@ -31,7 +32,7 @@ const addSale = async (
       valor_total: result.data?.valor_total,
       valor_pago: result.data?.valor_pago,
       troco: result.data?.troco,
-      data_venda: db.fn.now(),
+      data_venda: nowBrazil(),
     });
 
     const produtosVenda = result.data?.produtos.map((produto) => ({

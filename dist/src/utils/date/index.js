@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formateISODate = void 0;
+exports.nowBrazil = exports.formateISODate = void 0;
+const date_fns_tz_1 = require("date-fns-tz");
 const formateISODate = (dataIso) => {
     const data = new Date(dataIso);
     const dia = String(data.getDate()).padStart(2, "0");
@@ -12,3 +13,10 @@ const formateISODate = (dataIso) => {
     return `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
 };
 exports.formateISODate = formateISODate;
+const nowBrazil = () => {
+    const timeZone = "America/Sao_Paulo";
+    const now = new Date();
+    const zoned = (0, date_fns_tz_1.toZonedTime)(now, timeZone);
+    return (0, date_fns_tz_1.format)(zoned, "yyyy-MM-dd HH:mm:ss", { timeZone });
+};
+exports.nowBrazil = nowBrazil;
