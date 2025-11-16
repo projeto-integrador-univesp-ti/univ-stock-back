@@ -64,7 +64,7 @@ const getSale = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 .select("p.nome", "m.sigla", "pv.quantidade", "pv.preco_unidade")
                 .where("pv.id_venda", venda.id);
             return Object.assign(Object.assign({}, venda), { troco: formatValues(venda.troco, 2), valor_total: formatValues(venda.valor_total, 2), valor_pago: formatValues(venda.valor_pago, 2), data_venda: (0, date_1.formateISODate)(venda.data_venda), produtos: produtos.map((product) => {
-                    return Object.assign(Object.assign({}, product), { quantidade: formatValues(product.quantidade, 3), preco_unidade: formatValues(product.preco_unidade, 2) });
+                    return Object.assign(Object.assign({}, product), { preco_unidade: formatValues(product.preco_unidade, 2), quantidade: formatValues(product.quantidade, 3) });
                 }) });
         })));
         res.status(http_status_codes_1.StatusCodes.OK).json({ data: response });

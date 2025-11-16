@@ -82,8 +82,8 @@ const getSale = async (
           produtos: produtos.map((product) => {
             return {
               ...product,
-              quantidade: formatValues(product.quantidade, 3),
               preco_unidade: formatValues(product.preco_unidade, 2),
+              quantidade: formatValues(product.quantidade, 3),
             };
           }),
         };
