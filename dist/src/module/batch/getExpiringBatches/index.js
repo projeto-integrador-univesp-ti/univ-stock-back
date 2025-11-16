@@ -36,16 +36,23 @@ const getExpiringBatches = (_, res) => __awaiter(void 0, void 0, void 0, functio
                 data: (0, date_fns_1.format)(validade, "dd/MM/yyyy", { locale: locale_1.ptBR }),
                 quantidade: `${Number(l.quantidade).toFixed(2)} ${l.medida_sigla}`,
             };
-            // lotes que vencem em até 7 dias
             if (validade >= today && validade <= oneWeekLater) {
                 semana.push(itemFormatado);
             }
-            // lotes que vencem até o final do mês (mas não na semana para evitar duplicidade)
             if (validade > oneWeekLater && validade <= endOfMonth) {
                 mes.push(itemFormatado);
             }
         });
-        res.json({ semana, mes });
+        const estoqueBaixo = yield (0, database_1.db)("produtos")
+            .select("produtos.nome", "produtos.quantidade", "produtos.quantidade_minima_estoque", "medidas.sigla as medida_sigla")
+            .leftJoin("medidas", "medidas.id", "produtos.id_medida")
+            .whereRaw("produtos.quantidade <= produtos.quantidade_minima_estoque");
+        const estoqueBaixoFormatado = estoqueBaixo.map((p) => ({
+            nome: p.nome,
+            quantidade: `${Number(p.quantidade).toFixed(2)} ${p.medida_sigla}`,
+            minimo: `${Number(p.quantidade_minima_estoque).toFixed(2)} ${p.medida_sigla}`,
+        }));
+        res.json({ semana, mes, estoqueBaixo: estoqueBaixoFormatado });
     }
     catch (err) {
         res
