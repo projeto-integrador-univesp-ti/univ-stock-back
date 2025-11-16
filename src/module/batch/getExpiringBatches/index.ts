@@ -10,6 +10,7 @@ import {
   ExpiringBatchItem,
   GetExpiringBatchesRequest,
   GetExpiringBatchesResponse,
+  MinItem,
 } from "./interfaces";
 
 const getExpiringBatches = async (
@@ -22,7 +23,7 @@ const getExpiringBatches = async (
     oneWeekLater.setDate(today.getDate() + 7);
 
     const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    
+
     const lotes = await db("lotes")
       .select(
         "lotes.codigo as lote_codigo",
@@ -35,8 +36,8 @@ const getExpiringBatches = async (
       .leftJoin("medidas", "medidas.id", "produtos.id_medida")
       .whereNotNull("lotes.dt_validade");
 
-    const semana: any[] = [];
-    const mes: any[] = [];
+    const semana: ExpiringBatchItem[] = [];
+    const mes: ExpiringBatchItem[] = [];
 
     lotes.forEach((l) => {
       const validade = new Date(l.dt_validade);
@@ -48,18 +49,34 @@ const getExpiringBatches = async (
         quantidade: `${Number(l.quantidade).toFixed(2)} ${l.medida_sigla}`,
       };
 
-      // lotes que vencem em até 7 dias
       if (validade >= today && validade <= oneWeekLater) {
         semana.push(itemFormatado);
       }
 
-      // lotes que vencem até o final do mês (mas não na semana para evitar duplicidade)
       if (validade > oneWeekLater && validade <= endOfMonth) {
         mes.push(itemFormatado);
       }
     });
+ 
+    const estoqueBaixo = await db("produtos")
+      .select(
+        "produtos.nome",
+        "produtos.quantidade",
+        "produtos.quantidade_minima_estoque",
+        "medidas.sigla as medida_sigla"
+      )
+      .leftJoin("medidas", "medidas.id", "produtos.id_medida")
+      .whereRaw("produtos.quantidade <= produtos.quantidade_minima_estoque");
 
-    res.json({ semana, mes });
+    const estoqueBaixoFormatado: MinItem[] = estoqueBaixo.map((p) => ({
+      nome: p.nome,
+      quantidade: `${Number(p.quantidade).toFixed(2)} ${p.medida_sigla}`,
+      minimo: `${Number(p.quantidade_minima_estoque).toFixed(2)} ${
+        p.medida_sigla
+      }`,
+    }));
+
+    res.json({ semana, mes, estoqueBaixo: estoqueBaixoFormatado });
   } catch (err: any) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
